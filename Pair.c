@@ -12,3 +12,7 @@ Pair* PairNew(int key, int value) {
     
     return pair;
 }
+
+void PairFree(Pair* pair) {
+    return free(pair);
+}

@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <stdlib.h>
 #include "Pair.c"
 #include "SinglyLinkedList.c"
@@ -53,7 +52,6 @@ void HashMapInsert(HashMap* map, int key, int value) {
     // check: if key exists change value, otherwise add
     Pair* pair = HashMapGetPairPointer(map, key);
     if (pair != NULL) {
-        printf("Pair {key = %d, value = %d} found\n", pair->key, pair->value);
         pair->value = value;
         return;
     }
@@ -93,12 +91,11 @@ _Bool HashMapDelete(HashMap* map, int key) {
     }
 
     if (last_list == NULL) {
-        printf("last_list == NULL\n");
         map->data[hash] = this_list->next;
     } else {
         last_list->next = this_list->next;
     }
-    SinglyLinkedListFree(this_list, free);
+    SinglyLinkedListFree(this_list, PairFree);
 
     return 1;
 }
