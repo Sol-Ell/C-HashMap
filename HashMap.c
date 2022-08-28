@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include "Pair.c"
 #include "SinglyLinkedList.c"
@@ -54,6 +55,7 @@ void HashMapInsert(HashMap* map, int key, int value) {
     if (pair != NULL) {
         printf("Pair {key = %d, value = %d} found\n", pair->key, pair->value);
         pair->value = value;
+        return;
     }
 
     SinglyLinkedListGetLast(map->data[hash])->next = list;
