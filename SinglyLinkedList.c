@@ -20,12 +20,12 @@ SinglyLinkedList* SinglyLinkedListGetLast(SinglyLinkedList* list) {
 	return list;
 }
 
-void SinglyLinkedListFree(SinglyLinkedList* list, void (freeData)(void*)) {
-    SinglyLinkedList* tmp = list;
-    while (list) {
-        tmp = list->next;
-        freeData(list->data);
-        free(list);
-        list = tmp;
-    }
+SinglyLinkedList* SinglyLinkedListFree(SinglyLinkedList* list, void (freeData)(void*)) {
+    /**
+     * @return next value of SinglyLinkedList
+     * */
+    SinglyLinkedList* next = list->next;
+    freeData(list->data);
+    free(list);
+    return next;
 }

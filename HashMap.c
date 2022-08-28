@@ -68,7 +68,7 @@ Pair* HashMapGetPair(HashMap* map, int key) {
     return (pair == NULL) ? NULL : PairNew(pair->key, pair->value);
 }
 
-_Bool HashMapDelete(HashMap* map, int key) {
+_Bool HashMapDeleteKey(HashMap* map, int key) {
     /**
      * @return 1 if pair deleted 0 otherwise
      * */
@@ -95,7 +95,25 @@ _Bool HashMapDelete(HashMap* map, int key) {
     } else {
         last_list->next = this_list->next;
     }
-    SinglyLinkedListFree(this_list, PairFree);
+    this_list->next = NULL;
+    SinglyLinkedListFree(this_list, free);
 
     return 1;
+}
+
+void HashMapDelete(HashMap* map) {
+    for (size_t i = 0; i < map->size; i++) {
+        SinglyLinkedList* list = map->data[i];
+        if (list == NULL) {
+            continue;
+        }
+
+        while (list != NULL) {
+            list = SinglyLinkedListFree(list, free);
+        }
+    }
+
+    free(map->data);
+    free(map);
+
 }
